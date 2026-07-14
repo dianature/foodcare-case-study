@@ -2,6 +2,10 @@
 
 **A recipe app for the person doing the caring.** Research, strategy, wireframes, 18 hi-fi screens, a design system, and a wired prototype.
 
+### [→ Open the live prototype](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html)
+
+All 18 screens, running in the browser. Pick any screen from the sidebar, or start at Welcome and walk the whole flow.
+
 ![FoodCare](visuals/research/00-cover-foodcare.png)
 
 ---
@@ -70,7 +74,7 @@ The 18 screens are wired together in Figma, from the first screen through to the
 
 After wiring I ran a reachability pass over every link. It caught a tab bar that went nowhere, a screen nothing pointed to, and a back button aimed at the wrong step. All 18 screens are now reachable from the first screen with no orphans.
 
-[`prototype/`](prototype/) holds the HTML, CSS and JS handoff bundle for the safety-token component and the main screen.
+The coded version is live here: **[dianature.github.io/foodcare-case-study](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html)**. [`prototype/`](prototype/) holds the source, an HTML, CSS and JS bundle with the safety-token component.
 
 ## What I have not done
 
