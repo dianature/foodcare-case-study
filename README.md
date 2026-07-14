@@ -2,9 +2,9 @@
 
 **A recipe app for the person doing the caring.** Research, strategy, wireframes, 18 hi-fi screens, a design system, and a wired prototype.
 
-### [→ Open the live prototype](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html)
+### [→ Open the final prototype (Figma)](https://www.figma.com/proto/PxzpcPieRBfJ9GK0VIvB9o/UI-UX-Designer-Test-Task?node-id=65-1719&scaling=min-zoom&content-scaling=fixed&page-id=40%3A220&starting-point-node-id=65%3A1719)
 
-All 18 screens, running in the browser. Pick any screen from the sidebar, or start at Welcome and walk the whole flow.
+All 18 screens, wired from Welcome through the daily loop to the carer hand-off. The earlier coded version is [still up here](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html), and the two of them are the two prototyping stages described below.
 
 ![FoodCare](visuals/research/00-cover-foodcare.png)
 
@@ -56,7 +56,8 @@ Two product decisions here came out of review and are worth naming, because both
 | Wireframes | ~21 low-fi phone screens, green-only and titles-only on purpose. [Plan](docs/04-wireframes-plan.md) |
 | Visual direction | Three hi-fi directions built on the same screen. Calm Bento won. [Study](docs/05-visual-direction.md) |
 | System spec | Tokens, type scale, icons, components, accessibility. [Spec](docs/06-ui-design-spec.md) |
-| Build | 18 screens plus a design system, wired from the first screen to the last. [Process](docs/01-design-process.md) |
+| Prototype, stage 1 | The spec built as real HTML, CSS and JS, to test whether it held up. [Live](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html) |
+| Prototype, stage 2 | 18 screens plus the design system in Figma, wired and reachability-checked. [Live](https://www.figma.com/proto/PxzpcPieRBfJ9GK0VIvB9o/UI-UX-Designer-Test-Task?node-id=65-1719&scaling=min-zoom&content-scaling=fixed&page-id=40%3A220&starting-point-node-id=65%3A1719) · [Process](docs/01-design-process.md) |
 
 ### Choosing the look
 
@@ -68,13 +69,27 @@ Calm Bento won, because a caregiver who is already tired does not need a loud in
 
 Running the direction as a study also caught two AI defaults before they reached the file: a cream-and-terracotta palette, and a Fraunces serif. Both are what generative tools reach for by default, and both would have made the product look like every other AI-designed app.
 
-## The prototype
+## The prototype, in two stages
 
-The 18 screens are wired together in Figma, from the first screen through to the last. Onboarding runs into the app, the four-tab bar carries Today, Cook, Shop and Care, the "Why this rule" sheet floats over a dimmed Tonight, and the hand-off moves from the family app into the carer's.
+I prototyped this twice, on purpose, and the two versions did different jobs.
 
-After wiring I ran a reachability pass over every link. It caught a tab bar that went nowhere, a screen nothing pointed to, and a back button aimed at the wrong step. All 18 screens are now reachable from the first screen with no orphans.
+### Stage 1: the coded prototype (Claude Design)
 
-The coded version is live here: **[dianature.github.io/foodcare-case-study](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html)**. [`prototype/`](prototype/) holds the source, an HTML, CSS and JS bundle with the safety-token component.
+**[Open it](https://dianature.github.io/foodcare-case-study/prototype/FoodCare.dc.html)** · source in [`prototype/`](prototype/)
+
+Once the UI spec existed, I built the screens as real HTML, CSS and JS through Claude Design, before opening Figma. Working in code first put pressure on the spec in a way a static mockup never does. A token either exists or it does not. A component either takes the state you claimed it takes, or the markup breaks. Several gaps in the safety-token system only became obvious once I had to write them out.
+
+This version is the earlier one. I am keeping it up because it is honest about the order I worked in, and because it is the artefact that proves the design system was real rather than decorative.
+
+### Stage 2: the final prototype (Figma)
+
+**[Open it](https://www.figma.com/proto/PxzpcPieRBfJ9GK0VIvB9o/UI-UX-Designer-Test-Task?node-id=65-1719&scaling=min-zoom&content-scaling=fixed&page-id=40%3A220&starting-point-node-id=65%3A1719)**
+
+The finished product lives in Figma: 18 screens plus the design system, wired together from the first screen through to the last. Onboarding runs into the app, the four-tab bar carries Today, Cook, Shop and Care, the "Why this rule" sheet floats over a dimmed Tonight, and the hand-off moves from the family app into the carer's.
+
+After wiring I ran a reachability pass over every link. It caught a tab bar that went nowhere, a screen nothing pointed to, and a back button aimed at the wrong step. All 18 screens are now reachable from Welcome with no orphans.
+
+The Figma file is also where the real polish landed: the warmed palette, real food photography on the recipe surfaces, and people shown as coloured initials so nobody is reduced to a photograph of a sick relative.
 
 ## What I have not done
 
