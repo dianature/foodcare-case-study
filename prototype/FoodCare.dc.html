@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#E7E9E0;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#fcScroll::-webkit-scrollbar{width:0}
+.fcNavBtn{cursor:pointer;border:none;background:transparent;font-family:Manrope,sans-serif;text-align:left}
+@keyframes fcIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fcSheet{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes fcPop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:flex-start;gap:0;background:#E7E9E0;padding:0">
+
+<aside style="width:214px;flex:none;align-self:stretch;position:sticky;top:0;height:100vh;overflow-y:auto;background:#191C17;color:#F4F5EF;padding:22px 16px 40px">
+<div style="display:flex;align-items:center;gap:9px;margin:2px 4px 20px">
+<span style="width:26px;height:26px;border-radius:8px;background:#6F8A26;display:grid;place-items:center;color:#191C17;font-size:15px"><i class="ph-fill ph-leaf"></i></span>
+<span style="font:800 16px/1 Manrope;letter-spacing:-.02em">FoodCare</span>
+</div>
+<sc-for list="{{ navGroups }}" as="grp" hint-placeholder-count="5">
+<div style="margin:0 0 15px">
+<div style="font:700 10px/1 Manrope;letter-spacing:.12em;text-transform:uppercase;color:#6F7A55;padding:0 6px;margin:0 0 7px">{{ grp.label }}</div>
+<sc-for list="{{ grp.items }}" as="it" hint-placeholder-count="4">
+<button class="fcNavBtn" data-to="{{ it.id }}" data-tab="{{ it.tab }}" onClick="{{ nav }}" style="display:flex;align-items:center;gap:9px;width:100%;padding:7px 8px;border-radius:9px;color:#C7CBBB;font:600 12.5px/1.2 Manrope;margin-bottom:1px">
+<span style="font-size:14px;width:16px;text-align:center;opacity:.9"><i class="{{ it.icon }}"></i></span>{{ it.name }}
+</button>
+</sc-for>
+</div>
+</sc-for>
+</aside>
+
+<div style="flex:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px">
+<div style="width:404px;height:876px;background:#F4F5EF;border-radius:44px;box-shadow:0 30px 80px -20px rgba(25,28,23,.28),0 0 0 1px rgba(25,28,23,.04);position:relative;overflow:hidden;display:flex;flex-direction:column">
+
+<div style="flex:none;height:52px;padding:0 30px;display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:8px;color:#191C17;position:relative;z-index:5">
+<span style="font:700 15px/1 Manrope;letter-spacing:.01em">9:41</span>
+<span style="display:flex;align-items:center;gap:6px;font-size:15px"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-fill ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span>
+</div>
+
+<div id="fcScroll" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative">
+
+<!--SCREENS-->
+
+<sc-if value="{{ show.login }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 26px 34px;min-height:824px;display:flex;flex-direction:column">
+<button class="fcNavBtn" data-to="welcome" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px;margin-bottom:30px"><i class="ph-bold ph-arrow-left"></i></button>
+<h1 style="font:800 28px/1.15 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 8px">Welcome back</h1>
+<p style="font:400 15px/1.5 Manrope;color:#696E64;margin:0 0 30px">Your household and its food rules are right where you left them.</p>
+<div style="display:flex;flex-direction:column;gap:12px">
+<button class="fcNavBtn" style="display:flex;align-items:center;justify-content:center;gap:11px;height:56px;border-radius:16px;background:#fff;border:1px solid #E7E8E0;font:700 15px Manrope;color:#191C17"><i class="ph ph-apple-logo" style="font-size:21px"></i> Continue with Apple</button>
+<button class="fcNavBtn" style="display:flex;align-items:center;justify-content:center;gap:11px;height:56px;border-radius:16px;background:#fff;border:1px solid #E7E8E0;font:700 15px Manrope;color:#191C17"><i class="ph ph-google-logo" style="font-size:21px"></i> Continue with Google</button>
+<div style="display:flex;align-items:center;gap:12px;margin:6px 0"><span style="flex:1;height:1px;background:#E7E8E0"></span><span style="font:600 12px Manrope;color:#8A8F84">or email</span><span style="flex:1;height:1px;background:#E7E8E0"></span></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:14px;padding:14px 16px;font:500 14px Manrope;color:#8A8F84">you@email.com</div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:14px;padding:14px 16px;font:500 14px Manrope;color:#8A8F84;display:flex;justify-content:space-between;align-items:center"><span>Password</span><i class="ph ph-eye" style="color:#8A8F84"></i></div>
+</div>
+<button class="fcNavBtn" style="text-align:right;font:600 13px Manrope;color:#4F6417;margin-top:14px;background:transparent">Forgot password?</button>
+<div style="flex:1"></div>
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope">Log in <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-arrow-right"></i></span></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.household }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 34px;min-height:824px;display:flex;flex-direction:column">
+<div style="display:flex;align-items:center;gap:5px;margin-bottom:22px">
+<button class="fcNavBtn" data-to="welcome" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px"><i class="ph-bold ph-arrow-left"></i></button>
+<div style="flex:1;display:flex;gap:5px;padding:0 8px"><span style="flex:1;height:4px;border-radius:2px;background:#6F8A26"></span><span style="flex:1;height:4px;border-radius:2px;background:#D7DACB"></span><span style="flex:1;height:4px;border-radius:2px;background:#D7DACB"></span></div>
+</div>
+<h1 style="font:800 27px/1.18 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 7px">Who do you cook for?</h1>
+<p style="font:400 14.5px/1.5 Manrope;color:#696E64;margin:0 0 22px">Add everyone who eats from your kitchen. You can change this any time.</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<button class="fcNavBtn" data-role="me" onClick="{{ toggleRole }}" style="display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid {{ roleMeBorder }};border-radius:16px;padding:14px 15px;width:100%">
+<span style="width:40px;height:40px;border-radius:50%;background:#EEF0E8;color:#8C9182;display:grid;place-items:center;font-size:20px"><i class="ph-fill ph-user"></i></span>
+<span style="flex:1;text-align:left"><span style="display:block;font:700 15px Manrope;color:#191C17">Just me</span><span style="display:block;font:500 12.5px Manrope;color:#8A8F84;margin-top:1px">Olena, the cook</span></span>
+<sc-if value="{{ roleMeOn }}" hint-placeholder-val="{{ true }}"><span style="width:24px;height:24px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font-size:13px"><i class="ph-bold ph-check"></i></span></sc-if>
+</button>
+<button class="fcNavBtn" data-role="partner" onClick="{{ toggleRole }}" style="display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid {{ rolePartnerBorder }};border-radius:16px;padding:14px 15px;width:100%">
+<span style="width:40px;height:40px;border-radius:50%;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;font-size:20px"><i class="ph-fill ph-heart"></i></span>
+<span style="flex:1;text-align:left"><span style="display:block;font:700 15px Manrope;color:#191C17">Partner</span><span style="display:block;font:500 12.5px Manrope;color:#8A8F84;margin-top:1px">Iryna, IBD</span></span>
+<sc-if value="{{ rolePartnerOn }}" hint-placeholder-val="{{ true }}"><span style="width:24px;height:24px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font-size:13px"><i class="ph-bold ph-check"></i></span></sc-if>
+</button>
+<button class="fcNavBtn" data-role="parent" onClick="{{ toggleRole }}" style="display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid {{ roleParentBorder }};border-radius:16px;padding:14px 15px;width:100%">
+<span style="width:40px;height:40px;border-radius:50%;background:#E7EAF0;color:#3F4A53;display:grid;place-items:center;font-size:20px"><i class="ph-fill ph-user"></i></span>
+<span style="flex:1;text-align:left"><span style="display:block;font:700 15px Manrope;color:#191C17">Parent</span><span style="display:block;font:500 12.5px Manrope;color:#8A8F84;margin-top:1px">Dad, kidney diet</span></span>
+<sc-if value="{{ roleParentOn }}" hint-placeholder-val="{{ true }}"><span style="width:24px;height:24px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font-size:13px"><i class="ph-bold ph-check"></i></span></sc-if>
+</button>
+<button class="fcNavBtn" data-role="child" onClick="{{ toggleRole }}" style="display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid {{ roleChildBorder }};border-radius:16px;padding:14px 15px;width:100%">
+<span style="width:40px;height:40px;border-radius:50%;background:#F0ECE2;color:#B08A4E;display:grid;place-items:center;font-size:20px"><i class="ph-fill ph-baby"></i></span>
+<span style="flex:1;text-align:left"><span style="display:block;font:700 15px Manrope;color:#191C17">Child</span><span style="display:block;font:500 12.5px Manrope;color:#8A8F84;margin-top:1px">Add a little one</span></span>
+<sc-if value="{{ roleChildOn }}" hint-placeholder-val="{{ false }}"><span style="width:24px;height:24px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font-size:13px"><i class="ph-bold ph-check"></i></span></sc-if>
+</button>
+<button class="fcNavBtn" data-role="other" onClick="{{ toggleRole }}" style="display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid {{ roleOtherBorder }};border-radius:16px;padding:14px 15px;width:100%">
+<span style="width:40px;height:40px;border-radius:50%;background:#EEF0E8;color:#8A8F84;display:grid;place-items:center;font-size:20px"><i class="ph-fill ph-users"></i></span>
+<span style="flex:1;text-align:left"><span style="display:block;font:700 15px Manrope;color:#191C17">Someone else</span><span style="display:block;font:500 12.5px Manrope;color:#8A8F84;margin-top:1px">Roommate, friend</span></span>
+<sc-if value="{{ roleOtherOn }}" hint-placeholder-val="{{ false }}"><span style="width:24px;height:24px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font-size:13px"><i class="ph-bold ph-check"></i></span></sc-if>
+</button>
+</div>
+<div style="flex:1;min-height:16px"></div>
+<button class="fcNavBtn" data-to="profile" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope;margin-top:14px">Continue <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-arrow-right"></i></span></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.profile }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;min-height:824px;display:flex;flex-direction:column;background:#fff">
+<div style="padding:14px 22px 0;flex:1;overflow:hidden">
+<div style="width:44px;height:5px;border-radius:3px;background:#E7E8E0;margin:0 auto 20px"></div>
+<div style="display:flex;align-items:center;gap:13px;margin-bottom:22px">
+<span style="width:52px;height:52px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font:700 19px Manrope">Ir</span>
+<div><h1 style="font:800 22px/1.1 Manrope;letter-spacing:-.02em;color:#191C17;margin:0">Iryna</h1><span style="font:500 13px Manrope;color:#8A8F84">Quick profile</span></div>
+</div>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:11px">Pick a look</div>
+<div style="display:flex;gap:12px;margin-bottom:24px">
+<span style="width:44px;height:44px;border-radius:50%;background:#6F8A26;box-shadow:0 0 0 3px #fff,0 0 0 5px #6F8A26"></span>
+<span style="width:44px;height:44px;border-radius:50%;background:#8C9182"></span>
+<span style="width:44px;height:44px;border-radius:50%;background:#3F4A53"></span>
+<span style="width:44px;height:44px;border-radius:50%;background:#B08A4E"></span>
+<span style="width:44px;height:44px;border-radius:50%;background:#EEF0E8;border:1.5px dashed #C7CBBB;display:grid;place-items:center;color:#8A8F84;font-size:18px"><i class="ph ph-camera"></i></span>
+</div>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:11px">What should we watch for?</div>
+<div style="background:#F4F5EF;border:1px solid #E7E8E0;border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:9px;margin-bottom:13px"><i class="ph ph-magnifying-glass" style="color:#8A8F84"></i><span style="font:500 14px Manrope;color:#8A8F84">Search a condition or food</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px">
+<button class="fcNavBtn" data-cond="ibd" onClick="{{ toggleCond }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ condIbdBg }};border:1.5px solid {{ condIbdBd }};border-radius:999px;padding:8px 14px;font:600 13px Manrope;color:#191C17">Bowel condition (IBD)</button>
+<button class="fcNavBtn" data-cond="lowsalt" onClick="{{ toggleCond }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ condLowsaltBg }};border:1.5px solid {{ condLowsaltBd }};border-radius:999px;padding:8px 14px;font:600 13px Manrope;color:#191C17">Low salt</button>
+<button class="fcNavBtn" data-cond="lactose" onClick="{{ toggleCond }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ condLactoseBg }};border:1.5px solid {{ condLactoseBd }};border-radius:999px;padding:8px 14px;font:600 13px Manrope;color:#191C17">Lactose</button>
+<button class="fcNavBtn" data-cond="nuts" onClick="{{ toggleCond }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ condNutsBg }};border:1.5px solid {{ condNutsBd }};border-radius:999px;padding:8px 14px;font:600 13px Manrope;color:#191C17">Nuts</button>
+<button class="fcNavBtn" data-cond="gluten" onClick="{{ toggleCond }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ condGlutenBg }};border:1.5px solid {{ condGlutenBd }};border-radius:999px;padding:8px 14px;font:600 13px Manrope;color:#191C17">Gluten</button>
+<span style="display:inline-flex;align-items:center;gap:6px;border:1.5px dashed #C7CBBB;border-radius:999px;padding:8px 14px;font:600 13px Manrope;color:#8A8F84"><i class="ph ph-plus"></i> Add your own</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid #E7E8E0">
+<div><div style="font:700 14px Manrope;color:#191C17">Flare-up alerts</div><div style="font:500 12.5px Manrope;color:#8A8F84;margin-top:2px">Tell the cook when things change</div></div>
+<button class="fcNavBtn" data-key="flareAlerts" onClick="{{ toggle }}" style="width:48px;height:28px;border-radius:999px;background:{{ flareAlTrack }};position:relative;flex:none"><span style="position:absolute;top:3px;left:{{ flareAlX }};width:22px;height:22px;border-radius:50%;background:#fff;transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.2)"></span></button>
+</div>
+</div>
+<div style="padding:14px 22px 30px;border-top:1px solid #E7E8E0">
+<button class="fcNavBtn" data-to="account" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope">Done <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-check"></i></span></button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.account }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 26px 34px;min-height:824px;display:flex;flex-direction:column">
+<button class="fcNavBtn" data-to="profile" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px;margin-bottom:26px"><i class="ph-bold ph-arrow-left"></i></button>
+<div style="width:76px;height:76px;border-radius:22px;background:#ECF0DE;display:grid;place-items:center;color:#6F8A26;font-size:36px;margin-bottom:20px"><i class="ph-fill ph-bookmark-simple"></i></div>
+<h1 style="font:800 27px/1.16 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 8px">Save your household</h1>
+<p style="font:400 15px/1.5 Manrope;color:#696E64;margin:0 0 28px">Create an account so your people and their food rules are safe, on every device.</p>
+<div style="display:flex;flex-direction:column;gap:12px">
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:11px;height:56px;border-radius:16px;background:#1B1E17;color:#fff;font:700 15px Manrope"><i class="ph ph-apple-logo" style="font-size:21px;color:#fff"></i> Continue with Apple</button>
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:11px;height:56px;border-radius:16px;background:#fff;border:1px solid #E7E8E0;font:700 15px Manrope;color:#191C17"><i class="ph ph-google-logo" style="font-size:21px"></i> Continue with Google</button>
+</div>
+<div style="flex:1"></div>
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="width:100%;text-align:center;font:600 14px Manrope;color:#696E64;background:transparent;padding:14px">Maybe later</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.iryna }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 40px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:22px">
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px"><i class="ph-bold ph-arrow-left"></i></button>
+<span style="font:700 16px Manrope;color:#191C17">Iryna</span>
+</div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:22px">
+<span style="width:60px;height:60px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font:700 22px Manrope">Ir</span>
+<div><div style="font:800 22px/1 Manrope;color:#191C17">Iryna</div><div style="font:500 13px Manrope;color:#696E64;margin-top:4px">Bowel condition (IBD), low salt</div></div>
+</div>
+<div style="display:flex;gap:6px;background:#EDEEE7;border-radius:14px;padding:5px;margin-bottom:20px">
+<button class="fcNavBtn" data-set="irynaFlare" data-bool="false" onClick="{{ setBool }}" style="flex:1;padding:11px;border-radius:10px;background:{{ remBg }};color:{{ remFg }};font:700 14px Manrope;text-align:center;box-shadow:{{ remShadow }}">Remission</button>
+<button class="fcNavBtn" data-set="irynaFlare" data-bool="true" onClick="{{ setBool }}" style="flex:1;padding:11px;border-radius:10px;background:{{ flrBg }};color:{{ flrFg }};font:700 14px Manrope;text-align:center;box-shadow:{{ flrShadow }}">Flare</button>
+</div>
+<div style="background:{{ irynaBannerBg }};border-radius:18px;padding:16px;display:flex;gap:12px;align-items:center;margin-bottom:22px">
+<span style="width:42px;height:42px;border-radius:50%;background:{{ irynaBannerIcon }};color:#fff;display:grid;place-items:center;font-size:21px;flex:none"><i class="{{ irynaBannerGlyph }}"></i></span>
+<div><div style="font:700 15px Manrope;color:#191C17">{{ irynaBannerTitle }}</div><div style="font:500 13px/1.4 Manrope;color:#696E64;margin-top:2px">{{ irynaBannerBody }}</div></div>
+</div>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:12px">What changes on her plate</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:14px 15px;display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Chili &amp; strong spice</div><div style="font:500 12px Manrope;color:#696E64;margin-top:2px">{{ irynaSpiceNote }}</div></div><dc-import name="SafetyToken" state="{{ irynaSpiceState }}" hint-size="96px,26px"></dc-import></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:14px 15px;display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Raw salad &amp; skins</div><div style="font:500 12px Manrope;color:#696E64;margin-top:2px">{{ irynaFibreNote }}</div></div><dc-import name="SafetyToken" state="{{ irynaFibreState }}" hint-size="96px,26px"></dc-import></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:14px 15px;display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Cooked soft greens</div><div style="font:500 12px Manrope;color:#696E64;margin-top:2px">Gentle, always fine</div></div><dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.whyrule }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:824px;position:relative;background:rgba(25,28,23,.42)">
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="position:absolute;inset:0;width:100%;height:100%;background:transparent"></button>
+<div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:28px 28px 0 0;padding:22px 24px 34px;animation:fcSheet .38s cubic-bezier(.2,.8,.2,1) both">
+<div style="width:44px;height:5px;border-radius:3px;background:#E7E8E0;margin:0 auto 22px"></div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:44px;height:44px;border-radius:12px;background:#F8DED7;color:#A8463A;display:grid;place-items:center;font-size:22px"><i class="ph-fill ph-warning"></i></span><div><div style="font:700 11px/1 Manrope;letter-spacing:.1em;text-transform:uppercase;color:#A8463A;margin-bottom:5px">Why hold the salt</div><div style="font:800 19px/1.1 Manrope;color:#191C17">For dad's kidneys</div></div></div>
+<p style="font:400 15px/1.55 Manrope;color:#4A4F45;margin:0 0 18px">Dad's kidneys can't clear extra salt well. Too much makes his body hold water and raises his blood pressure. Keeping salt off his plate keeps him steady.</p>
+<div style="background:#ECF0DE;border-radius:16px;padding:15px;display:flex;gap:11px;align-items:flex-start;margin-bottom:22px"><span style="color:#4F6417;font-size:20px;margin-top:1px"><i class="ph-fill ph-lightbulb"></i></span><div><div style="font:700 13px Manrope;color:#4F6417;margin-bottom:3px">Instead, try</div><div style="font:500 13.5px/1.45 Manrope;color:#55671C">Lemon, garlic and fresh herbs. All the flavour, none of the salt.</div></div></div>
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="width:100%;height:54px;border-radius:16px;background:#1B1E17;color:#fff;font:700 15px Manrope">Got it</button>
+</div>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ show.welcome }}" hint-placeholder-val="{{ true }}">
+<div style="animation:fcIn .4s ease both;min-height:824px;display:flex;flex-direction:column;padding:0 26px 34px">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:26px;padding-top:20px">
+<div style="width:184px;height:184px;border-radius:50%;background:#ECF0DE;display:grid;place-items:center;position:relative">
+<div style="position:absolute;inset:22px;border-radius:50%;border:1.5px dashed #C4D19A"></div>
+<span style="font-size:78px;color:#6F8A26"><i class="ph ph-cooking-pot"></i></span>
+<span style="position:absolute;top:24px;right:20px;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#6F8A26;font-size:19px;box-shadow:0 6px 16px -6px rgba(25,28,23,.2)"><i class="ph-fill ph-heart"></i></span>
+</div>
+<div>
+<div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:16px">
+<span style="width:30px;height:30px;border-radius:9px;background:#6F8A26;display:grid;place-items:center;color:#191C17;font-size:17px"><i class="ph-fill ph-leaf"></i></span>
+<span style="font:800 25px/1 Manrope;letter-spacing:-.03em;color:#191C17">FoodCare</span>
+</div>
+<h1 style="font:800 30px/1.18 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 12px;text-wrap:balance">Someone remembers, so you don't have to.</h1>
+<p style="font:400 15px/1.5 Manrope;color:#696E64;margin:0;max-width:280px">One base meal, safely split for everyone at your table. FoodCare carries the food rules for you.</p>
+</div>
+</div>
+<button class="fcNavBtn" data-to="household" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope;margin-top:8px">
+Set things up <span style="color:#A9C24E;font-size:19px;display:grid;place-items:center"><i class="ph-bold ph-arrow-right"></i></span>
+</button>
+<button class="fcNavBtn" data-to="login" onClick="{{ nav }}" style="width:100%;text-align:center;margin-top:15px;font:600 14px Manrope;color:#4F6417;background:transparent">Log in</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.today }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 120px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+<div>
+<div style="font:500 13px/1 Manrope;color:#8A8F84;margin-bottom:5px">Wednesday, good evening</div>
+<h1 style="font:800 27px/1 Manrope;letter-spacing:-.02em;color:#191C17;margin:0">Hi Olena</h1>
+</div>
+<button class="fcNavBtn" data-to="assign" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:20px"><i class="ph ph-bell"></i></button>
+</div>
+
+<div style="background:#ECF0DE;border-radius:26px;padding:20px;display:flex;gap:16px;align-items:center;margin-bottom:14px">
+<div style="flex:1">
+<div style="font:700 10px/1 Manrope;letter-spacing:.1em;text-transform:uppercase;color:#7B8A57;margin-bottom:9px">Just now</div>
+<div style="font:800 20px/1.28 Manrope;letter-spacing:-.01em;color:#191C17">Dad ate lunch. He's okay.</div>
+<button class="fcNavBtn" data-to="breath" onClick="{{ nav }}" style="display:inline-flex;align-items:center;gap:5px;margin-top:11px;font:700 13px Manrope;color:#4F6417;background:transparent">See his day <i class="ph-bold ph-arrow-right" style="font-size:13px"></i></button>
+</div>
+<div style="width:92px;height:92px;flex:none;border-radius:50%;background:radial-gradient(circle at 38% 34%,#F3D9A6,#E7B877 42%,#D89A54 66%,#fff 67%);box-shadow:inset 0 0 0 7px #fff,0 8px 20px -10px rgba(25,28,23,.3);position:relative;overflow:hidden">
+<span style="position:absolute;left:22px;top:20px;width:20px;height:20px;border-radius:50%;background:#8FA84B"></span>
+<span style="position:absolute;left:46px;top:44px;width:16px;height:16px;border-radius:50%;background:#C7532F"></span>
+<span style="position:absolute;left:24px;top:50px;width:22px;height:12px;border-radius:8px;background:#B7CE7B"></span>
+</div>
+</div>
+
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="width:100%;background:#fff;border:1px solid #E7E8E0;border-radius:22px;padding:16px;display:flex;gap:15px;align-items:center;margin-bottom:22px">
+<div style="width:66px;height:66px;flex:none;border-radius:16px;background:radial-gradient(circle at 40% 36%,#EFE0B8,#CBBF8B 55%,#A7B06A);position:relative;overflow:hidden">
+<span style="position:absolute;right:10px;bottom:10px;width:24px;height:24px;border-radius:50%;background:#D98E43"></span>
+<span style="position:absolute;left:12px;top:12px;width:18px;height:18px;border-radius:50%;background:#7E9A3E"></span>
+</div>
+<div style="flex:1;text-align:left">
+<div style="font:700 10px/1 Manrope;letter-spacing:.1em;text-transform:uppercase;color:#8A8F84;margin-bottom:6px">Tonight</div>
+<div style="font:700 16px/1.2 Manrope;color:#191C17;margin-bottom:6px">Lemon herb chicken &amp; greens</div>
+<div style="display:flex;gap:5px"><span style="width:9px;height:9px;border-radius:50%;background:#8C9182"></span><span style="width:9px;height:9px;border-radius:50%;background:#6F8A26"></span><span style="width:9px;height:9px;border-radius:50%;background:#3F4A53"></span><span style="font:600 11px Manrope;color:#8A8F84;margin-left:4px">safe for all 3, split</span></div>
+</div>
+<span style="color:#191C17;font-size:20px"><i class="ph ph-caret-right"></i></span>
+</button>
+
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:12px">Your people tonight</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:14px 15px;display:flex;align-items:center;gap:12px">
+<span style="width:38px;height:38px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font:700 14px Manrope;flex:none">Ir</span>
+<div style="flex:1">
+<div style="font:700 15px/1.1 Manrope;color:#191C17">Iryna</div>
+<div style="font:500 12.5px Manrope;color:#696E64;margin-top:2px">{{ irynaState }}</div>
+</div>
+<button class="fcNavBtn" data-key="irynaFlare" onClick="{{ toggle }}" style="width:48px;height:28px;border-radius:999px;background:{{ flareTrack }};position:relative;transition:background .25s;flex:none">
+<span style="position:absolute;top:3px;left:{{ flareX }};width:22px;height:22px;border-radius:50%;background:#fff;transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.2)"></span>
+</button>
+</div>
+<button class="fcNavBtn" data-to="care" data-tab="care" onClick="{{ nav }}" style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:14px 15px;display:flex;align-items:center;gap:12px;width:100%">
+<span style="width:38px;height:38px;border-radius:50%;background:#3F4A53;color:#fff;display:grid;place-items:center;font:700 14px Manrope;flex:none">Da</span>
+<div style="flex:1;text-align:left">
+<div style="font:700 15px/1.1 Manrope;color:#191C17">Dad</div>
+<div style="font:500 12.5px Manrope;color:#696E64;margin-top:2px">Kidney diet, low salt</div>
+</div>
+<span style="color:#8A8F84;font-size:18px"><i class="ph ph-caret-right"></i></span>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.tonight }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding-bottom:130px">
+<div style="height:290px;position:relative;background:radial-gradient(circle at 50% 42%,#F0E3BC,#D6C88E 52%,#B4B06A);overflow:hidden">
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(25,28,23,.28),transparent 40%,rgba(25,28,23,.02))"></div>
+<div style="position:absolute;left:50%;top:150px;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 42% 38%,#fff,#F3EFE3 60%,#E7DFC8);box-shadow:0 20px 40px -14px rgba(25,28,23,.35);overflow:hidden">
+<span style="position:absolute;left:52px;top:44px;width:60px;height:44px;border-radius:40% 50% 44% 50%;background:linear-gradient(135deg,#E6B36A,#C98A3F)"></span>
+<span style="position:absolute;left:104px;top:86px;width:52px;height:40px;border-radius:50%;background:#7FA03F"></span>
+<span style="position:absolute;left:56px;top:104px;width:44px;height:30px;border-radius:50%;background:#9CBE55"></span>
+<span style="position:absolute;left:96px;top:52px;width:22px;height:22px;border-radius:50%;background:#D8632F"></span>
+<span style="position:absolute;left:78px;top:120px;width:18px;height:18px;border-radius:50%;background:#E7C24B"></span>
+</div>
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="position:absolute;top:14px;left:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:grid;place-items:center;color:#191C17;font-size:19px"><i class="ph-bold ph-arrow-left"></i></button>
+<span style="position:absolute;top:20px;right:22px;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.9);padding:6px 12px;border-radius:999px;font:700 12px Manrope;color:#191C17"><i class="ph ph-clock" style="font-size:14px"></i> 35 min</span>
+</div>
+
+<div style="background:#F4F5EF;border-radius:26px 26px 0 0;margin-top:-24px;position:relative;padding:22px 22px 0">
+<h1 style="font:800 25px/1.15 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 6px">Lemon herb chicken &amp; greens</h1>
+<p style="font:400 14px/1.5 Manrope;color:#696E64;margin:0 0 18px">Cook one base, then split at the end. Everyone eats the same dinner, made safe for each person.</p>
+
+<div style="display:flex;gap:8px;margin-bottom:22px">
+<div style="flex:1;background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:12px;text-align:center">
+<div style="width:34px;height:34px;border-radius:10px;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;margin:0 auto 8px;font-size:17px"><i class="ph ph-users-three"></i></div>
+<div style="font:800 16px/1 Manrope;color:#191C17">3</div><div style="font:500 11px Manrope;color:#8A8F84;margin-top:3px">people</div>
+</div>
+<div style="flex:1;background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:12px;text-align:center">
+<div style="width:34px;height:34px;border-radius:10px;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;margin:0 auto 8px;font-size:17px"><i class="ph ph-fire"></i></div>
+<div style="font:800 16px/1 Manrope;color:#191C17">1</div><div style="font:500 11px Manrope;color:#8A8F84;margin-top:3px">base meal</div>
+</div>
+<div style="flex:1;background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:12px;text-align:center">
+<div style="width:34px;height:34px;border-radius:10px;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;margin:0 auto 8px;font-size:17px"><i class="ph ph-cooking-pot"></i></div>
+<div style="font:800 16px/1 Manrope;color:#191C17">Easy</div><div style="font:500 11px Manrope;color:#8A8F84;margin-top:3px">one pan</div>
+</div>
+</div>
+
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:12px">Split at the table</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:14px 15px;display:flex;align-items:center;gap:12px">
+<span style="width:34px;height:34px;border-radius:50%;background:#8C9182;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">You</span>
+<div style="flex:1"><div style="font:700 14px/1.1 Manrope;color:#191C17;margin-bottom:2px">You</div><div style="font:500 12px Manrope;color:#696E64">Eat as is</div></div>
+<dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import>
+</div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:14px 15px;display:flex;align-items:center;gap:12px">
+<span style="width:34px;height:34px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">Ir</span>
+<div style="flex:1"><div style="font:700 14px/1.1 Manrope;color:#191C17;margin-bottom:2px">Iryna</div><div style="font:500 12px Manrope;color:#696E64">Hold the chili flakes</div></div>
+<dc-import name="SafetyToken" state="modify" hint-size="96px,26px"></dc-import>
+</div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:14px 15px;display:flex;align-items:center;gap:12px">
+<span style="width:34px;height:34px;border-radius:50%;background:#3F4A53;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">Da</span>
+<div style="flex:1"><div style="font:700 14px/1.1 Manrope;color:#191C17;margin-bottom:2px">Dad</div><div style="font:500 12px Manrope;color:#696E64">Hold the salt, add extra greens</div></div>
+<dc-import name="SafetyToken" state="modify" hint-size="96px,26px"></dc-import>
+</div>
+</div>
+
+<button class="fcNavBtn" data-to="whyrule" onClick="{{ nav }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:#ECF0DE;border-radius:16px;padding:14px 16px;margin-bottom:22px">
+<span style="display:flex;align-items:center;gap:10px;font:700 13.5px Manrope;color:#4F6417"><i class="ph ph-info" style="font-size:18px"></i> Why these splits?</span>
+<i class="ph-bold ph-arrow-right" style="color:#4F6417;font-size:14px"></i>
+</button>
+
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:14px">The one base, 3 steps</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:13px"><span style="width:28px;height:28px;border-radius:50%;background:#191C17;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">1</span><div style="font:500 14px/1.45 Manrope;color:#191C17;padding-top:3px">Roast the chicken and greens together with lemon and herbs.</div></div>
+<div style="display:flex;gap:13px"><span style="width:28px;height:28px;border-radius:50%;background:#191C17;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">2</span><div style="font:500 14px/1.45 Manrope;color:#191C17;padding-top:3px">Plate everyone before you season the pan.</div></div>
+<div style="display:flex;gap:13px"><span style="width:28px;height:28px;border-radius:50%;background:#191C17;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">3</span><div style="font:500 14px/1.45 Manrope;color:#191C17;padding-top:3px">Salt and chili go on your plate only. Extra greens on dad's.</div></div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.breath }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 120px;min-height:824px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+<button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px"><i class="ph-bold ph-arrow-left"></i></button>
+<div style="display:flex;gap:6px;background:#fff;border:1px solid #E7E8E0;border-radius:999px;padding:4px">
+<button class="fcNavBtn" data-key="dbVar" data-val="a" onClick="{{ pick }}" style="padding:6px 12px;border-radius:999px;font:700 12px Manrope;background:{{ dbABg }};color:{{ dbAFg }}">Calm</button>
+<button class="fcNavBtn" data-key="dbVar" data-val="b" onClick="{{ pick }}" style="padding:6px 12px;border-radius:999px;font:700 12px Manrope;background:{{ dbBBg }};color:{{ dbBFg }}">Timeline</button>
+<button class="fcNavBtn" data-key="dbVar" data-val="c" onClick="{{ pick }}" style="padding:6px 12px;border-radius:999px;font:700 12px Manrope;background:{{ dbCBg }};color:{{ dbCFg }}">Alert</button>
+</div>
+</div>
+
+<sc-if value="{{ dbA }}" hint-placeholder-val="{{ true }}">
+<div style="animation:fcPop .35s ease both;text-align:center;padding-top:26px">
+<div style="font:700 11px/1 Manrope;letter-spacing:.14em;text-transform:uppercase;color:#8A8F84;margin-bottom:22px">Today at a glance</div>
+<div style="width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 40% 36%,#F4E6C2,#E2C88C 55%,#CDB86F);margin:0 auto 28px;box-shadow:inset 0 0 0 10px #fff,0 24px 50px -18px rgba(25,28,23,.35);position:relative;overflow:hidden">
+<span style="position:absolute;left:64px;top:58px;width:56px;height:44px;border-radius:44% 50% 44% 50%;background:linear-gradient(135deg,#E4AF63,#C6863B)"></span>
+<span style="position:absolute;left:120px;top:100px;width:48px;height:38px;border-radius:50%;background:#7FA03F"></span>
+<span style="position:absolute;left:70px;top:120px;width:40px;height:28px;border-radius:50%;background:#9CBE55"></span>
+<span style="position:absolute;left:112px;top:64px;width:22px;height:22px;border-radius:50%;background:#D8632F"></span>
+</div>
+<h1 style="font:800 27px/1.24 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 auto 10px;max-width:290px;text-wrap:balance">Dad ate every meal today. He's okay.</h1>
+<p style="font:500 14px/1.5 Manrope;color:#696E64;margin:0 auto;max-width:250px">Breakfast, lunch and dinner all logged. Nothing needs you right now.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ dbB }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcPop .35s ease both;padding-top:8px">
+<h1 style="font:800 25px/1.2 Manrope;letter-spacing:-.02em;color:#191C17;margin:14px 0 20px">Dad's day, calmly</h1>
+<div style="display:flex;flex-direction:column;gap:0;position:relative">
+<div style="position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:#E7E8E0"></div>
+<div style="display:flex;gap:15px;padding:6px 0 20px;position:relative"><span style="width:40px;height:40px;border-radius:50%;background:#E9EFD5;color:#4F6417;display:grid;place-items:center;flex:none;font-size:19px;z-index:1"><i class="ph-fill ph-sun"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Breakfast, 8:10</div><div style="font:500 13px/1.4 Manrope;color:#696E64;margin-top:2px">Oatmeal with pear. Ate well.</div></div><dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import></div>
+<div style="display:flex;gap:15px;padding:6px 0 20px;position:relative"><span style="width:40px;height:40px;border-radius:50%;background:#E9EFD5;color:#4F6417;display:grid;place-items:center;flex:none;font-size:19px;z-index:1"><i class="ph-fill ph-sun-horizon"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Lunch, 13:20</div><div style="font:500 13px/1.4 Manrope;color:#696E64;margin-top:2px">Rice and soft chicken. Ate a little.</div></div><dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import></div>
+<div style="display:flex;gap:15px;padding:6px 0 6px;position:relative"><span style="width:40px;height:40px;border-radius:50%;background:#fff;border:1.5px dashed #C7CBBB;color:#8A8F84;display:grid;place-items:center;flex:none;font-size:19px;z-index:1"><i class="ph ph-moon"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Dinner, planned</div><div style="font:500 13px/1.4 Manrope;color:#696E64;margin-top:2px">Lemon herb chicken. Olena is cooking.</div></div></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ dbC }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcPop .35s ease both;text-align:center;padding-top:24px">
+<div style="width:96px;height:96px;border-radius:50%;background:#FBF1D2;display:grid;place-items:center;margin:0 auto 22px;color:#8A6410;font-size:44px"><i class="ph-fill ph-bell-ringing"></i></div>
+<h1 style="font:800 26px/1.26 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 auto 12px;max-width:290px;text-wrap:balance">Dad hasn't eaten lunch yet.</h1>
+<p style="font:500 14px/1.5 Manrope;color:#696E64;margin:0 auto 26px;max-width:260px">It's 14:40. Olena has been reminded and will check in soon.</p>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:16px;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<span style="width:40px;height:40px;border-radius:50%;background:#8C9182;color:#fff;display:grid;place-items:center;font:700 14px Manrope">Ol</span>
+<div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Olena, carer</div><div style="font:500 12.5px Manrope;color:#696E64;margin-top:2px">Reminded at 14:35</div></div>
+<span style="font:700 11px Manrope;color:#8A6410;background:#FBF1D2;padding:5px 10px;border-radius:999px">Notified</span>
+</div>
+<button class="fcNavBtn" style="width:100%;height:54px;border-radius:16px;background:#1B1E17;color:#fff;font:700 15px Manrope;display:flex;align-items:center;justify-content:center;gap:9px"><i class="ph-fill ph-phone" style="color:#A9C24E"></i> Call dad</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.cook }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 120px">
+<h1 style="font:800 27px/1 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 16px">Cook</h1>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:9px;margin-bottom:16px"><i class="ph ph-magnifying-glass" style="color:#8A8F84;font-size:18px"></i><span style="font:500 14px Manrope;color:#8A8F84">Search meals your people can share</span></div>
+<div style="display:flex;gap:8px;margin-bottom:22px;overflow-x:auto">
+<span style="display:inline-flex;align-items:center;gap:6px;background:#ECF0DE;border:1.5px solid #6F8A26;border-radius:999px;padding:8px 13px;font:600 12.5px Manrope;color:#191C17;white-space:nowrap;flex:none"><span style="width:8px;height:8px;border-radius:50%;background:#6F8A26"></span> All 3</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #E7E8E0;border-radius:999px;padding:8px 13px;font:600 12.5px Manrope;color:#696E64;white-space:nowrap;flex:none"><span style="width:8px;height:8px;border-radius:50%;background:#6F8A26"></span> Iryna</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #E7E8E0;border-radius:999px;padding:8px 13px;font:600 12.5px Manrope;color:#696E64;white-space:nowrap;flex:none"><span style="width:8px;height:8px;border-radius:50%;background:#3F4A53"></span> Dad</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #E7E8E0;border-radius:999px;padding:8px 13px;font:600 12.5px Manrope;color:#696E64;white-space:nowrap;flex:none">Quick</span>
+</div>
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="width:100%;background:#191C17;border-radius:22px;padding:20px;text-align:left;margin-bottom:22px;position:relative;overflow:hidden">
+<div style="position:absolute;right:-20px;top:-20px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#EFE0B8,#B4B06A);opacity:.9"></div>
+<span style="position:relative;display:inline-block;font:700 10px/1 Manrope;letter-spacing:.1em;text-transform:uppercase;color:#A9C24E;margin-bottom:44px">Cook once, split safely</span>
+<div style="position:relative"><div style="font:800 19px/1.2 Manrope;color:#fff;margin-bottom:6px;max-width:180px">Lemon herb chicken &amp; greens</div><div style="display:flex;gap:5px;align-items:center"><span style="width:9px;height:9px;border-radius:50%;background:#8C9182"></span><span style="width:9px;height:9px;border-radius:50%;background:#6F8A26"></span><span style="width:9px;height:9px;border-radius:50%;background:#3F4A53"></span><span style="font:600 12px Manrope;color:#C7CBBB;margin-left:5px">safe for the whole table</span></div></div>
+</button>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:14px">Everyone can share</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:0;overflow:hidden;text-align:left">
+<div style="height:104px;background:radial-gradient(circle at 46% 42%,#F0E3BC,#C9BE86 60%,#A9B06A);position:relative"><span style="position:absolute;left:26px;top:30px;width:44px;height:34px;border-radius:50%;background:#D98E43"></span><span style="position:absolute;right:24px;bottom:22px;width:38px;height:30px;border-radius:50%;background:#7FA03F"></span></div>
+<div style="padding:11px 13px 13px"><div style="font:700 13.5px/1.2 Manrope;color:#191C17;margin-bottom:8px">Baked cod &amp; potato</div><div style="display:flex;gap:4px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:#8C9182"></span><span style="width:8px;height:8px;border-radius:50%;background:#6F8A26"></span><span style="width:8px;height:8px;border-radius:50%;background:#3F4A53"></span><span style="font:700 9px Manrope;letter-spacing:.05em;color:#4F6417;margin-left:auto">SAFE</span></div></div>
+</button>
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:0;overflow:hidden;text-align:left">
+<div style="height:104px;background:radial-gradient(circle at 46% 42%,#E9D9C0,#C7A97E 60%,#A98B5E);position:relative"><span style="position:absolute;left:24px;bottom:24px;width:40px;height:32px;border-radius:50%;background:#B7CE7B"></span><span style="position:absolute;right:26px;top:28px;width:34px;height:34px;border-radius:50%;background:#C7532F"></span></div>
+<div style="padding:11px 13px 13px"><div style="font:700 13.5px/1.2 Manrope;color:#191C17;margin-bottom:8px">Chicken rice bowl</div><div style="display:flex;gap:4px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:#8C9182"></span><span style="width:8px;height:8px;border-radius:50%;background:#6F8A26"></span><span style="width:8px;height:8px;border-radius:50%;background:#3F4A53"></span><span style="font:700 9px Manrope;letter-spacing:.05em;color:#8A6410;margin-left:auto">SPLIT</span></div></div>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.shop }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 120px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><h1 style="font:800 27px/1 Manrope;letter-spacing:-.02em;color:#191C17;margin:0">Shopping</h1><span style="font:600 12px Manrope;color:#8A8F84">From tonight's meal</span></div>
+<p style="font:400 13.5px Manrope;color:#696E64;margin:0 0 20px">Tagged by who it's for. One clash flagged below.</p>
+<div style="background:#F8DED7;border-radius:16px;padding:14px 15px;display:flex;gap:11px;align-items:center;margin-bottom:20px"><span style="width:38px;height:38px;border-radius:50%;background:#E8705C;color:#fff;display:grid;place-items:center;font-size:18px;flex:none"><i class="ph-fill ph-warning"></i></span><div style="flex:1"><div style="font:700 13.5px Manrope;color:#A8463A">Table salt is on the list</div><div style="font:500 12px/1.35 Manrope;color:#9A5347;margin-top:2px">Keep it away from dad's plate. Tap to swap for herbs.</div></div></div>
+<div style="display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:4px 16px;margin-bottom:20px">
+<div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #EEF0E8"><span style="width:26px;height:26px;border-radius:8px;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;font-size:15px"><i class="ph ph-check-square"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Chicken thighs</div><div style="font:500 11.5px Manrope;color:#8A8F84;margin-top:1px">For everyone</div></div><div style="display:flex;align-items:center;gap:12px"><button class="fcNavBtn" style="width:28px;height:28px;border-radius:50%;border:1px solid #E7E8E0;background:#fff;color:#191C17;font-size:14px"><i class="ph-bold ph-minus"></i></button><span style="font:700 14px Manrope;color:#191C17;min-width:44px;text-align:center">600 g</span><button class="fcNavBtn" style="width:28px;height:28px;border-radius:50%;border:none;background:#191C17;color:#fff;font-size:14px"><i class="ph-bold ph-plus"></i></button></div></div>
+<div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #EEF0E8"><span style="width:26px;height:26px;border-radius:8px;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;font-size:15px"><i class="ph ph-check-square"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Fresh greens</div><div style="font:500 11.5px Manrope;color:#8A8F84;margin-top:1px">Extra for dad</div></div><div style="display:flex;align-items:center;gap:12px"><button class="fcNavBtn" style="width:28px;height:28px;border-radius:50%;border:1px solid #E7E8E0;background:#fff;color:#191C17;font-size:14px"><i class="ph-bold ph-minus"></i></button><span style="font:700 14px Manrope;color:#191C17;min-width:44px;text-align:center">2 bunch</span><button class="fcNavBtn" style="width:28px;height:28px;border-radius:50%;border:none;background:#191C17;color:#fff;font-size:14px"><i class="ph-bold ph-plus"></i></button></div></div>
+<div style="display:flex;align-items:center;gap:12px;padding:14px 0"><span style="width:26px;height:26px;border-radius:8px;background:#EEF0E8;color:#C7CBBB;display:grid;place-items:center;font-size:15px"><i class="ph ph-square"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Lemons &amp; herbs</div><div style="font:500 11.5px Manrope;color:#8A8F84;margin-top:1px">Flavour, no salt</div></div><div style="display:flex;align-items:center;gap:12px"><button class="fcNavBtn" style="width:28px;height:28px;border-radius:50%;border:1px solid #E7E8E0;background:#fff;color:#191C17;font-size:14px"><i class="ph-bold ph-minus"></i></button><span style="font:700 14px Manrope;color:#191C17;min-width:44px;text-align:center">3</span><button class="fcNavBtn" style="width:28px;height:28px;border-radius:50%;border:none;background:#191C17;color:#fff;font-size:14px"><i class="ph-bold ph-plus"></i></button></div></div>
+</div>
+<button class="fcNavBtn" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope">Share list <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-paper-plane-tilt"></i></span></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.care }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 120px">
+<h1 style="font:800 27px/1 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 18px">Dad's care</h1>
+<div style="background:#ECF0DE;border-radius:22px;padding:18px 20px;display:flex;align-items:center;gap:14px;margin-bottom:20px">
+<span style="width:56px;height:56px;border-radius:50%;background:#3F4A53;color:#fff;display:grid;place-items:center;font:700 20px Manrope;flex:none">Da</span>
+<div style="flex:1"><div style="font:800 19px/1 Manrope;color:#191C17;margin-bottom:6px">Dad</div><div style="font:500 12.5px Manrope;color:#5E6656">Kidney diet, low salt</div></div>
+<dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import>
+</div>
+<div style="display:flex;gap:10px;margin-bottom:22px">
+<div style="flex:1;background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:14px"><div style="width:32px;height:32px;border-radius:9px;background:#E9EFD5;color:#4F6417;display:grid;place-items:center;margin-bottom:9px;font-size:16px"><i class="ph-fill ph-check"></i></div><div style="font:800 18px/1 Manrope;color:#191C17">3/3</div><div style="font:500 11.5px Manrope;color:#8A8F84;margin-top:3px">meals today</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:14px"><div style="width:32px;height:32px;border-radius:9px;background:#ECF0DE;color:#6F8A26;display:grid;place-items:center;margin-bottom:9px;font-size:16px"><i class="ph-fill ph-drop"></i></div><div style="font:800 18px/1 Manrope;color:#191C17">6</div><div style="font:500 11.5px Manrope;color:#8A8F84;margin-top:3px">glasses water</div></div>
+</div>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:12px">This week's plan</div>
+<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:22px">
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px"><span style="font:700 13px Manrope;color:#191C17;width:34px">Wed</span><div style="flex:1"><div style="font:700 13.5px Manrope;color:#191C17">Lemon herb chicken</div></div><dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px"><span style="font:700 13px Manrope;color:#191C17;width:34px">Thu</span><div style="flex:1"><div style="font:700 13.5px Manrope;color:#191C17">Baked cod &amp; potato</div></div><dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px"><span style="font:700 13px Manrope;color:#191C17;width:34px">Fri</span><div style="flex:1"><div style="font:700 13.5px Manrope;color:#191C17">Soft veg &amp; rice</div></div><dc-import name="SafetyToken" state="modify" hint-size="96px,26px"></dc-import></div>
+</div>
+<button class="fcNavBtn" data-to="assign" onClick="{{ nav }}" style="width:100%;background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:15px;display:flex;align-items:center;gap:12px;margin-bottom:14px;text-align:left"><span style="width:40px;height:40px;border-radius:50%;background:#EEF0E8;color:#8C9182;display:grid;place-items:center;font-size:19px"><i class="ph-fill ph-user-circle"></i></span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Olena is cooking for dad</div><div style="font:500 12px Manrope;color:#8A8F84;margin-top:2px">Carer, 3 days a week</div></div><i class="ph ph-caret-right" style="color:#8A8F84"></i></button>
+<button class="fcNavBtn" data-to="tonight" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope">Plan dad's meals <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-arrow-right"></i></span></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.assign }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 40px;min-height:824px;display:flex;flex-direction:column">
+<button class="fcNavBtn" data-to="care" data-tab="care" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px;margin-bottom:20px"><i class="ph-bold ph-arrow-left"></i></button>
+<h1 style="font:800 26px/1.15 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 8px">Hand off the cooking, keep the menu</h1>
+<p style="font:400 14.5px/1.5 Manrope;color:#696E64;margin:0 0 24px">Invite someone to cook for dad. They see only the meals you approve and his safety rules.</p>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px;margin-bottom:14px"><span style="width:46px;height:46px;border-radius:50%;background:#8C9182;color:#fff;display:grid;place-items:center;font:700 16px Manrope">Ol</span><div style="flex:1"><div style="font:700 15px Manrope;color:#191C17">Olena K.</div><div style="font:500 12.5px Manrope;color:#8A8F84;margin-top:2px">olena@email.com</div></div><span style="font:700 11px Manrope;color:#4F6417;background:#E9EFD5;padding:5px 10px;border-radius:999px">Approved</span></div>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin:8px 0 12px">Meals she can cook</div>
+<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px"><i class="ph-fill ph-check-circle" style="color:#6F8A26;font-size:20px"></i><span style="flex:1;font:600 14px Manrope;color:#191C17">Lemon herb chicken</span></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px"><i class="ph-fill ph-check-circle" style="color:#6F8A26;font-size:20px"></i><span style="flex:1;font:600 14px Manrope;color:#191C17">Baked cod &amp; potato</span></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px"><i class="ph ph-circle" style="color:#C7CBBB;font-size:20px"></i><span style="flex:1;font:600 14px Manrope;color:#8A8F84">Soft veg &amp; rice</span></div>
+</div>
+<div style="background:#ECF0DE;border-radius:14px;padding:13px 15px;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px"><i class="ph-fill ph-lock-simple" style="color:#4F6417;font-size:17px;margin-top:1px"></i><span style="font:500 12.5px/1.45 Manrope;color:#55671C">She can't see dad's medical details, only what keeps his plate safe.</span></div>
+<div style="flex:1"></div>
+<button class="fcNavBtn" data-to="carertoday" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope">Send invite <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-paper-plane-tilt"></i></span></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.carertoday }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 34px;min-height:824px;display:flex;flex-direction:column;background:#F4F5EF">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+<div style="display:flex;align-items:center;gap:9px"><span style="width:30px;height:30px;border-radius:9px;background:#6F8A26;display:grid;place-items:center;color:#191C17;font-size:16px"><i class="ph-fill ph-leaf"></i></span><span style="font:800 16px Manrope;color:#191C17">Cooking for dad</span></div>
+<span style="font:600 12px Manrope;color:#8A8F84;background:#fff;border:1px solid #E7E8E0;padding:6px 11px;border-radius:999px">Carer view</span>
+</div>
+<h1 style="font:800 26px/1.15 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 20px">Today you're making lunch for dad</h1>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:24px;overflow:hidden;margin-bottom:18px">
+<div style="height:170px;background:radial-gradient(circle at 50% 45%,#F0E3BC,#CBBF8B 58%,#A9B06A);position:relative"><span style="position:absolute;left:80px;top:44px;width:70px;height:52px;border-radius:44% 50% 44% 50%;background:linear-gradient(135deg,#E4AF63,#C6863B)"></span><span style="position:absolute;left:150px;top:88px;width:58px;height:44px;border-radius:50%;background:#7FA03F"></span><span style="position:absolute;left:96px;top:104px;width:48px;height:34px;border-radius:50%;background:#9CBE55"></span></div>
+<div style="padding:18px 18px 20px"><div style="font:800 20px/1.1 Manrope;color:#191C17;margin-bottom:12px">Lemon herb chicken &amp; greens</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"><span style="display:inline-flex;align-items:center;gap:6px;background:#F8DED7;color:#A8463A;border-radius:999px;padding:7px 13px;font:700 12.5px Manrope"><i class="ph-bold ph-x-circle"></i> No salt</span><span style="display:inline-flex;align-items:center;gap:6px;background:#E9EFD5;color:#4F6417;border-radius:999px;padding:7px 13px;font:700 12.5px Manrope"><i class="ph-bold ph-check-circle"></i> Soft cooked</span></div>
+<div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;gap:11px"><span style="width:26px;height:26px;border-radius:50%;background:#191C17;color:#fff;display:grid;place-items:center;font:700 12px Manrope;flex:none">1</span><span style="font:500 14px/1.4 Manrope;color:#191C17;padding-top:2px">Roast chicken and greens until very soft.</span></div><div style="display:flex;gap:11px"><span style="width:26px;height:26px;border-radius:50%;background:#191C17;color:#fff;display:grid;place-items:center;font:700 12px Manrope;flex:none">2</span><span style="font:500 14px/1.4 Manrope;color:#191C17;padding-top:2px">Season with lemon and herbs only. No salt.</span></div></div></div>
+</div>
+<div style="flex:1"></div>
+<button class="fcNavBtn" data-to="checkin" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:64px;border-radius:20px;background:#1B1E17;color:#fff;font:700 17px Manrope"><i class="ph-fill ph-cooking-pot" style="color:#A9C24E;font-size:23px"></i> Cooked it, check in</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.checkin }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 34px;min-height:824px;display:flex;flex-direction:column">
+<button class="fcNavBtn" data-to="carertoday" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px;margin-bottom:20px"><i class="ph-bold ph-arrow-left"></i></button>
+<h1 style="font:800 26px/1.15 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 18px">How did dad's lunch go?</h1>
+<div style="height:150px;border-radius:20px;border:2px dashed #C7CBBB;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin-bottom:22px;color:#8A8F84"><i class="ph ph-camera" style="font-size:34px"></i><span style="font:600 13.5px Manrope">Add a photo of his plate</span></div>
+<div style="display:flex;flex-direction:column;gap:11px;margin-bottom:20px">
+<button class="fcNavBtn" data-to="breath" onClick="{{ nav }}" style="display:flex;align-items:center;gap:14px;background:#E9EFD5;border:1.5px solid #7B9A2E;border-radius:18px;padding:17px 18px;text-align:left"><span style="width:44px;height:44px;border-radius:50%;background:#7B9A2E;color:#fff;display:grid;place-items:center;font-size:22px"><i class="ph-fill ph-smiley"></i></span><span style="font:700 16px Manrope;color:#191C17">Ate well</span></button>
+<button class="fcNavBtn" data-to="breath" onClick="{{ nav }}" style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:17px 18px;text-align:left"><span style="width:44px;height:44px;border-radius:50%;background:#E8B43C;color:#fff;display:grid;place-items:center;font-size:22px"><i class="ph-fill ph-smiley-meh"></i></span><span style="font:700 16px Manrope;color:#191C17">Ate a little</span></button>
+<button class="fcNavBtn" data-to="breath" onClick="{{ nav }}" style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:17px 18px;text-align:left"><span style="width:44px;height:44px;border-radius:50%;background:#E8705C;color:#fff;display:grid;place-items:center;font-size:22px"><i class="ph-fill ph-smiley-sad"></i></span><div><div style="font:700 16px Manrope;color:#191C17">Didn't eat</div><div style="font:500 12px Manrope;color:#8A8F84;margin-top:2px">We'll gently let Olena know</div></div></button>
+</div>
+<div style="background:#F4F5EF;border:1px solid #E7E8E0;border-radius:14px;padding:13px 15px;font:500 14px Manrope;color:#8A8F84;margin-bottom:20px">Add a note for the family (optional)</div>
+<div style="flex:1"></div>
+<button class="fcNavBtn" data-to="breath" onClick="{{ nav }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:56px;border-radius:18px;background:#1B1E17;color:#fff;font:700 15.5px Manrope">Send <span style="color:#A9C24E;font-size:19px"><i class="ph-bold ph-paper-plane-tilt"></i></span></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ show.whoseplate }}" hint-placeholder-val="{{ false }}">
+<div style="animation:fcIn .4s ease both;padding:8px 22px 40px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><button class="fcNavBtn" data-to="today" data-tab="today" onClick="{{ nav }}" style="width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #E7E8E0;display:grid;place-items:center;color:#191C17;font-size:19px"><i class="ph-bold ph-arrow-left"></i></button><span style="font:700 16px Manrope;color:#191C17">Whose plate?</span></div>
+<h1 style="font:800 25px/1.16 Manrope;letter-spacing:-.02em;color:#191C17;margin:0 0 16px">Check if a food is safe</h1>
+<div style="display:flex;gap:7px;background:#EDEEE7;border-radius:14px;padding:5px;margin-bottom:18px">
+<button class="fcNavBtn" data-key="wpTab" data-val="type" onClick="{{ pick }}" style="flex:1;padding:9px 0;border-radius:10px;background:{{ wpTypeBg }};color:{{ wpTypeFg }};font:700 12.5px Manrope;display:flex;flex-direction:column;align-items:center;gap:4px"><i class="ph ph-keyboard" style="font-size:17px"></i>Type</button>
+<button class="fcNavBtn" data-key="wpTab" data-val="photo" onClick="{{ pick }}" style="flex:1;padding:9px 0;border-radius:10px;background:{{ wpPhotoBg }};color:{{ wpPhotoFg }};font:700 12.5px Manrope;display:flex;flex-direction:column;align-items:center;gap:4px"><i class="ph ph-camera" style="font-size:17px"></i>Photo</button>
+<button class="fcNavBtn" data-key="wpTab" data-val="scan" onClick="{{ pick }}" style="flex:1;padding:9px 0;border-radius:10px;background:{{ wpScanBg }};color:{{ wpScanFg }};font:700 12.5px Manrope;display:flex;flex-direction:column;align-items:center;gap:4px"><i class="ph ph-barcode" style="font-size:17px"></i>Scan</button>
+<button class="fcNavBtn" data-key="wpTab" data-val="voice" onClick="{{ pick }}" style="flex:1;padding:9px 0;border-radius:10px;background:{{ wpVoiceBg }};color:{{ wpVoiceFg }};font:700 12.5px Manrope;display:flex;flex-direction:column;align-items:center;gap:4px"><i class="ph ph-microphone" style="font-size:17px"></i>Voice</button>
+</div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:16px;padding:15px 16px;display:flex;align-items:center;gap:10px;margin-bottom:22px"><span style="font:700 15px Manrope;color:#191C17;flex:1">Blue cheese dressing</span><span style="width:30px;height:30px;border-radius:50%;background:#191C17;color:#fff;display:grid;place-items:center;font-size:14px"><i class="ph-bold ph-arrow-right"></i></span></div>
+<div style="font:700 12px/1 Manrope;letter-spacing:.08em;text-transform:uppercase;color:#8A8F84;margin-bottom:12px">What it means for each plate</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px"><span style="width:36px;height:36px;border-radius:50%;background:#8C9182;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">You</span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">You</div><div style="font:500 12px Manrope;color:#696E64;margin-top:2px">Enjoy it</div></div><dc-import name="SafetyToken" state="safe" hint-size="86px,26px"></dc-import></div>
+<div style="background:#fff;border:1px solid #E7E8E0;border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px"><span style="width:36px;height:36px;border-radius:50%;background:#6F8A26;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">Ir</span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Iryna</div><div style="font:500 12px Manrope;color:#696E64;margin-top:2px">Rich and high-fat, go easy</div></div><dc-import name="SafetyToken" state="modify" hint-size="96px,26px"></dc-import></div>
+<div style="background:#fff;border:1.5px solid #F1C6BC;border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px"><span style="width:36px;height:36px;border-radius:50%;background:#3F4A53;color:#fff;display:grid;place-items:center;font:700 13px Manrope;flex:none">Da</span><div style="flex:1"><div style="font:700 14px Manrope;color:#191C17">Dad</div><div style="font:500 12px Manrope;color:#696E64;margin-top:2px">Too much salt for his kidneys</div></div><dc-import name="SafetyToken" state="avoid" hint-size="86px,26px"></dc-import></div>
+</div>
+<button class="fcNavBtn" data-to="whyrule" onClick="{{ nav }}" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#ECF0DE;border-radius:14px;padding:13px;margin-top:16px;font:700 13.5px Manrope;color:#4F6417"><i class="ph ph-info" style="font-size:17px"></i> Why for dad?</button>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{ isMain }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;position:absolute;bottom:0;left:0;right:0;height:88px;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid #E7E8E0;display:flex;padding:10px 18px 24px;z-index:10">
+<button class="fcNavBtn" data-tab="today" onClick="{{ setTab }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:transparent;color:{{ todayFg }}"><i class="ph-fill ph-sun-horizon" style="font-size:23px"></i><span style="font:700 11px Manrope">Today</span></button>
+<button class="fcNavBtn" data-tab="cook" onClick="{{ setTab }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:transparent;color:{{ cookFg }}"><i class="ph ph-cooking-pot" style="font-size:23px"></i><span style="font:700 11px Manrope">Cook</span></button>
+<button class="fcNavBtn" data-tab="shop" onClick="{{ setTab }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:transparent;color:{{ shopFg }}"><i class="ph ph-basket" style="font-size:23px"></i><span style="font:700 11px Manrope">Shop</span></button>
+<button class="fcNavBtn" data-tab="care" onClick="{{ setTab }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:transparent;color:{{ careFg }}"><i class="ph ph-hand-heart" style="font-size:23px"></i><span style="font:700 11px Manrope">Care</span></button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { screen:'welcome', tab:'today', irynaFlare:false, dbVar:'a',
+    roles:{ me:true, partner:true, parent:true, child:false, other:false },
+    conds:{ ibd:true, lowsalt:true, lactose:false, nuts:false, gluten:false },
+    remoteCook:true, flareAlerts:true, wpTab:'type' };
+  componentDidUpdate(_, prev){
+    if(prev.screen !== this.state.screen){
+      const el = document.getElementById('fcScroll');
+      if(el) el.scrollTop = 0;
+    }
+  }
+  renderVals(){
+    const st = this.state;
+    const nav = (e)=>{ const d=e.currentTarget.dataset; this.setState({ screen:d.to, ...(d.tab?{tab:d.tab}:{}) }); };
+    const setTab = (e)=>{ const t=e.currentTarget.dataset.tab; this.setState({ screen:t, tab:t }); };
+    const toggle = (e)=>{ const k=e.currentTarget.dataset.key; this.setState(s=>({ [k]:!s[k] })); };
+    const pick = (e)=>{ const d=e.currentTarget.dataset; this.setState({ [d.key]:d.val }); };
+    const setBool = (e)=>{ const d=e.currentTarget.dataset; this.setState({ [d.set]: d.bool==='true' }); };
+    const toggleRole = (e)=>{ const k=e.currentTarget.dataset.role; this.setState(s=>({ roles:{...s.roles,[k]:!s.roles[k]} })); };
+    const toggleCond = (e)=>{ const k=e.currentTarget.dataset.cond; this.setState(s=>({ conds:{...s.conds,[k]:!s.conds[k]} })); };
+    const screens = ['welcome','login','household','profile','account','today','iryna','tonight','whoseplate','whyrule','cook','shop','care','assign','carertoday','checkin','breath'];
+    const show = {}; screens.forEach(x=> show[x] = st.screen===x);
+    const isMain = ['today','cook','shop','care'].includes(st.screen);
+    const active = '#6F8A26', idle = '#A7ABA0';
+    const navGroups = [
+      { label:'Onboarding', items:[
+        {id:'welcome',name:'Welcome',icon:'ph ph-hand-waving',tab:''},
+        {id:'login',name:'Log in',icon:'ph ph-sign-in',tab:''},
+        {id:'household',name:'Household',icon:'ph ph-users-three',tab:''},
+        {id:'profile',name:'Quick profile',icon:'ph ph-user-circle',tab:''},
+        {id:'account',name:'Create account',icon:'ph ph-user-plus',tab:''} ] },
+      { label:'Daily loop', items:[
+        {id:'today',name:'Today',icon:'ph ph-sun-horizon',tab:'today'},
+        {id:'tonight',name:'Tonight',icon:'ph ph-fire',tab:''},
+        {id:'iryna',name:"Iryna's profile",icon:'ph ph-heartbeat',tab:''},
+        {id:'whoseplate',name:'Whose plate?',icon:'ph ph-scan',tab:''},
+        {id:'whyrule',name:'Why this rule',icon:'ph ph-info',tab:''} ] },
+      { label:'Cook & hand-off', items:[
+        {id:'cook',name:'Cook / Explore',icon:'ph ph-cooking-pot',tab:'cook'},
+        {id:'shop',name:'Shopping',icon:'ph ph-basket',tab:'shop'},
+        {id:'care',name:"Dad's care hub",icon:'ph ph-hand-heart',tab:'care'},
+        {id:'assign',name:'Assign a carer',icon:'ph ph-user-switch',tab:''} ] },
+      { label:'Carer app', items:[
+        {id:'carertoday',name:'Today for dad',icon:'ph ph-cooking-pot',tab:''},
+        {id:'checkin',name:'Meal check-in',icon:'ph ph-camera',tab:''} ] },
+      { label:'Reassurance', items:[
+        {id:'breath',name:'Daily breath',icon:'ph ph-wind',tab:''} ] },
+    ];
+    const r = st.roles, c = st.conds;
+    const sel = (b)=>b?'#6F8A26':'#E7E8E0';
+    return {
+      ...st, nav, setTab, toggle, pick, setBool, toggleRole, toggleCond, show, isMain, navGroups,
+      roleMeBorder:sel(r.me), rolePartnerBorder:sel(r.partner), roleParentBorder:sel(r.parent), roleChildBorder:sel(r.child), roleOtherBorder:sel(r.other),
+      roleMeOn:r.me, rolePartnerOn:r.partner, roleParentOn:r.parent, roleChildOn:r.child, roleOtherOn:r.other,
+      condIbd:c.ibd, condLowsalt:c.lowsalt, condLactose:c.lactose, condNuts:c.nuts, condGluten:c.gluten,
+      condIbdBg:c.ibd?'#ECF0DE':'#fff', condLowsaltBg:c.lowsalt?'#ECF0DE':'#fff', condLactoseBg:c.lactose?'#ECF0DE':'#fff', condNutsBg:c.nuts?'#ECF0DE':'#fff', condGlutenBg:c.gluten?'#ECF0DE':'#fff',
+      condIbdBd:sel(c.ibd), condLowsaltBd:sel(c.lowsalt), condLactoseBd:sel(c.lactose), condNutsBd:sel(c.nuts), condGlutenBd:sel(c.gluten),
+      remoteTrack: st.remoteCook?'#6F8A26':'#D7DACB', remoteX: st.remoteCook?'23px':'3px',
+      flareAlTrack: st.flareAlerts?'#6F8A26':'#D7DACB', flareAlX: st.flareAlerts?'23px':'3px',
+      irynaRemission: !st.irynaFlare, irynaFlareOn: st.irynaFlare,
+      remBg: !st.irynaFlare?'#fff':'transparent', remFg: !st.irynaFlare?'#191C17':'#8A8F84',
+      flrBg: st.irynaFlare?'#fff':'transparent', flrFg: st.irynaFlare?'#191C17':'#8A8F84',
+      wpType: st.wpTab==='type', wpPhoto: st.wpTab==='photo', wpScan: st.wpTab==='scan', wpVoice: st.wpTab==='voice',
+      wpTypeBg: st.wpTab==='type'?'#fff':'transparent', wpTypeFg: st.wpTab==='type'?'#191C17':'#8A8F84',
+      wpPhotoBg: st.wpTab==='photo'?'#fff':'transparent', wpPhotoFg: st.wpTab==='photo'?'#191C17':'#8A8F84',
+      wpScanBg: st.wpTab==='scan'?'#fff':'transparent', wpScanFg: st.wpTab==='scan'?'#191C17':'#8A8F84',
+      wpVoiceBg: st.wpTab==='voice'?'#fff':'transparent', wpVoiceFg: st.wpTab==='voice'?'#191C17':'#8A8F84',
+      remShadow: !st.irynaFlare?'0 1px 3px rgba(25,28,23,.12)':'none',
+      flrShadow: st.irynaFlare?'0 1px 3px rgba(25,28,23,.12)':'none',
+      irynaBannerBg: st.irynaFlare?'#FBF1D2':'#E9EFD5',
+      irynaBannerIcon: st.irynaFlare?'#E8B43C':'#7B9A2E',
+      irynaBannerGlyph: st.irynaFlare?'ph-fill ph-heartbeat':'ph-fill ph-check',
+      irynaBannerTitle: st.irynaFlare?'In a flare, extra gentle':'Steady, eating normally',
+      irynaBannerBody: st.irynaFlare?'Keep food soft and low-fibre until it settles.':'Most foods are fine. Keep an eye on spice.',
+      irynaSpiceNote: st.irynaFlare?'Too harsh right now':'Small amounts are okay',
+      irynaSpiceState: st.irynaFlare?'avoid':'modify',
+      irynaFibreNote: st.irynaFlare?'Hard to digest in a flare':'Fine in normal amounts',
+      irynaFibreState: st.irynaFlare?'avoid':'safe',
+      todayFg: st.tab==='today'?active:idle,
+      cookFg: st.tab==='cook'?active:idle,
+      shopFg: st.tab==='shop'?active:idle,
+      careFg: st.tab==='care'?active:idle,
+      irynaState: st.irynaFlare ? 'In a flare, extra care' : 'Feeling steady today',
+      flareTrack: st.irynaFlare ? '#E8B43C' : '#D7DACB',
+      flareX: st.irynaFlare ? '23px' : '3px',
+      dbA: st.dbVar==='a', dbB: st.dbVar==='b', dbC: st.dbVar==='c',
+      dbABg: st.dbVar==='a'?'#191C17':'transparent', dbAFg: st.dbVar==='a'?'#fff':'#696E64',
+      dbBBg: st.dbVar==='b'?'#191C17':'transparent', dbBFg: st.dbVar==='b'?'#fff':'#696E64',
+      dbCBg: st.dbVar==='c'?'#191C17':'transparent', dbCFg: st.dbVar==='c'?'#fff':'#696E64',
+    };
+  }
+}
+</script>
+</body>
+</html>
