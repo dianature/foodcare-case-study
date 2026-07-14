@@ -1,0 +1,14 @@
+# Never publish raw research data. Participants did not consent to it.
+*.m4a
+*.mp3
+*.wav
+Interviews/
+transcripts/
+**/Transcriptions-Raw*
+
+# Third-party reference imagery I do not own
+references/
+
+# Archives and OS noise
+*.zip
+.DS_Store
