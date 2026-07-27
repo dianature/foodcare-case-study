@@ -12,7 +12,7 @@ All 18 screens, wired from Welcome through the daily loop to the carer hand-off.
 
 ## The brief asked for a recipe app for people 20 to 35, and the research said that was the wrong product
 
-I did not want to design a general recipe app. General recipe apps sit in a crowded, low-trust category, and "make a recipe app" is not a problem, it is a format. So the first move was to find a specific person with a real reason to need the thing.
+I did not want to design a general recipe app. General recipe apps sit in a crowded, low-trust category, and a brief that says "make a recipe app" hands you a format while leaving the problem unstated. So the first move was to find a specific person with a real reason to need the thing.
 
 I asked 14 people the core questions and went deep with four of them. The numbers came back blunt. Only 2 of the 14 had ever used a dedicated recipe app, none used one currently, and every single person already got recipes from Instagram, TikTok, Google, ChatGPT, or simply from memory.
 
@@ -41,9 +41,9 @@ One rule carried into every screen: **safety is shown by a word, an icon, and a 
 | ![Tonight](visuals/ui/09-tonight.png) | **Tonight.** Cook once, split safely. One base meal, then the exact per-person change, each carrying its own safety token. |
 | ![Whose plate](visuals/ui/10-whose-plate.png) | **Whose plate.** Can this food go to this person, right now. A per-person verdict with a plain-language reason. |
 
-Two product decisions here came out of review and are worth naming, because both made the design more honest.
+Two product decisions came out of review, and both made the design more honest.
 
-**Input is not just search.** Whose plate takes a photo, a barcode scan, a pick from a meal the app already knows, or voice. A photo has to show what it thinks it saw before it gives a verdict, because a wrong guess is a safety verdict on the wrong food.
+**Search is only one way in.** Whose plate takes a photo, a barcode scan, a pick from a meal the app already knows, or voice. A photo has to show what it thinks it saw before it gives a verdict, because a wrong guess is a safety verdict on the wrong food.
 
 **The wrong-plate warning cannot be magic.** The app only knows a plate is headed to the wrong person when something tells it so. You are in that person's context, or you scanned a labelled container. So I reframed the guard as context-triggered rather than pretending the app watches your hands. A guard that fakes omniscience breaks trust the first time it gets something wrong.
 
@@ -89,7 +89,7 @@ The finished product lives in Figma: 18 screens plus the design system, wired to
 
 After wiring I ran a reachability pass over every link. It caught a tab bar that went nowhere, a screen nothing pointed to, and a back button aimed at the wrong step. All 18 screens are now reachable from Welcome with no orphans.
 
-The Figma file is also where the real polish landed: the warmed palette, real food photography on the recipe surfaces, and people shown as coloured initials so nobody is reduced to a photograph of a sick relative.
+The Figma file is also where the polish landed: the warmed palette, real food photography on the recipe surfaces, and people shown as coloured initials so nobody is reduced to a photograph of a sick relative.
 
 ## What I have not done
 
